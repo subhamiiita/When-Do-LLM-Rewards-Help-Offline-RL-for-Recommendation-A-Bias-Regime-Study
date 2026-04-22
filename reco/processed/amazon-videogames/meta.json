@@ -1,0 +1,11 @@
+{
+  "dataset": "amazon-videogames",
+  "num_users": 7253,
+  "num_items": 4338,
+  "num_interactions": 119573,
+  "avg_user_len": 16.486005790707292,
+  "p50_user_len": 12.0,
+  "p95_user_len": 35.0,
+  "rating_min": 1.0,
+  "rating_max": 5.0
+}

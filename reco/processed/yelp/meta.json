@@ -1,0 +1,11 @@
+{
+  "dataset": "yelp",
+  "num_users": 6559,
+  "num_items": 4111,
+  "num_interactions": 182302,
+  "avg_user_len": 27.79417594145449,
+  "p50_user_len": 16.0,
+  "p95_user_len": 84.0,
+  "rating_min": 1.0,
+  "rating_max": 5.0
+}

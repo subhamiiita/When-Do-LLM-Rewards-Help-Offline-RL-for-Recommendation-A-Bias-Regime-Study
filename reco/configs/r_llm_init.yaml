@@ -1,0 +1,75 @@
+seed: 42
+device: cuda
+num_workers: 0
+
+dataset:
+  name: movielens-1m
+  max_seq_len: 200
+  min_rating_positive: 4
+  val_frac: 0.1
+  neg_sampling: popularity
+
+encoder:
+  name: sasrec
+  hidden_dim: 128
+  num_blocks: 3
+  num_heads: 4
+  dropout: 0.2
+  attn_dropout: 0.2
+  # R_llm_init-only: PCA-truncated Qwen2-7B item embedding init.
+  item_emb_init_cache: cache/movielens-1m/qwen2_7b/item_embeddings_ml1m.npz
+  item_emb_init_k: 128
+  item_emb_init_target_std: 0.02
+
+# R_warm-parity agent block: reward path disabled by epochs=1, steps_per_epoch=0;
+# supervised warmup does all the work via warmup_steps=7500.
+agent:
+  name: iql
+  iql_tau: 0.7
+  iql_beta: 3.0
+  gamma: 0.99
+  encoder_lr: 5.0e-5
+  head_lr: 3.0e-4
+  warmup_lr: 1.0e-3
+  weight_decay: 1.0e-5
+  batch_size: 256
+  epochs: 1
+  steps_per_epoch: 0
+  warmup_epochs: 5
+  warmup_steps: 7500
+  freeze_encoder: false
+  clip_grad: 1.0
+  ema_tau: 0.005
+  autocast_bf16: true
+
+loss:
+  bc_weight_mode: gate_complement
+  pessimism_lambda: 0.0
+
+reward:
+  name: ug_mors_v2
+  topk_keywords: 16
+  sim_temperature: 0.15
+  binary_vote_threshold: 0.5
+  hard_gate_threshold: 0.55
+  crc_alpha: 0.1
+  epistemic_weights: [0.0, 0.5, 0.5]
+  gate_temperature: 0.1
+  confidence_floor: 0.2
+  calibration:
+    mode: mondrian
+    groups: popularity_decile
+    conformal_method: cqr
+
+eval:
+  protocol: full_rank
+  topks: [1, 5, 10, 20]
+  sample_negatives: 100
+  batch_users: 256
+  max_eval_users: 3000
+  eval_every: 2
+  report: [HR, NDCG, MRR, Coverage, Novelty, Diversity, TailHR]
+
+logging:
+  out_dir: runs_v2
+  save_every: 5

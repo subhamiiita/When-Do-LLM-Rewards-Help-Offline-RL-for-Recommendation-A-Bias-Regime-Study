@@ -1,0 +1,67 @@
+seed: 42
+device: cuda
+num_workers: 0
+num_seeds: 5                              # 5-seed protocol for the main table
+
+dataset:
+  name: movielens-1m                       # movielens-1m | amazon-videogames | yelp
+  max_seq_len: 200                         # was 50 — SASRec is much stronger at 200 on ML1M
+  min_rating_positive: 4
+  val_frac: 0.1
+  neg_sampling: popularity
+
+encoder:
+  name: sasrec
+  hidden_dim: 128                          # was 64
+  num_blocks: 3                            # was 2
+  num_heads: 4                             # was 2
+  dropout: 0.2
+  attn_dropout: 0.2
+
+agent:
+  name: iql                                # NEW — replaces frozen DQN
+  iql_tau: 0.7                             # expectile quantile for V
+  iql_beta: 3.0                            # AWR temperature
+  gamma: 0.99                              # proper long-horizon RL (was 0.9)
+  encoder_lr: 5.0e-5                       # lower LR on encoder
+  head_lr: 3.0e-4
+  warmup_lr: 1.0e-3
+  weight_decay: 1.0e-5
+  batch_size: 256
+  epochs: 30                               # was 10
+  steps_per_epoch: 2000                    # was 500 — real RL training
+  warmup_epochs: 5
+  freeze_encoder: false                    # THE FIX — was the bug
+  clip_grad: 1.0
+  ema_tau: 0.005
+
+loss:
+  bc_weight_mode: gate_complement          # gate_complement | uniform
+  pessimism_lambda: 0.1                    # weight on CQL-style OOD penalty
+
+reward:
+  name: ug_mors_v2                         # ug_mors | ug_mors_v2 | naive_continuous | binary | hard_gate
+  topk_keywords: 16
+  sim_temperature: 0.15
+  binary_vote_threshold: 0.5
+  hard_gate_threshold: 0.55
+  crc_alpha: 0.1                           # target miscoverage
+  epistemic_weights: [0.0, 0.5, 0.5]
+  gate_temperature: 0.1                    # NO longer 0.03 — the sharp gate saturated
+  confidence_floor: 0.2                    # higher floor -> BC can never be fully off when gate trusts
+  calibration:
+    mode: mondrian                         # global | mondrian
+    groups: popularity_decile
+    conformal_method: cqr                  # crc | cqr
+
+eval:
+  protocol: full_rank                      # full_rank | sampled
+  topks: [1, 5, 10, 20]
+  sample_negatives: 100                    # kept only for appendix comparison
+  batch_users: 256
+  max_eval_users: null                     # null = all users
+  report: [HR, NDCG, MRR, Coverage, Novelty, Diversity, TailHR]
+
+logging:
+  out_dir: runs
+  save_every: 5

@@ -1,0 +1,11 @@
+{
+  "dataset": "movielens-1m",
+  "num_users": 6040,
+  "num_items": 3260,
+  "num_interactions": 998539,
+  "avg_user_len": 165.32102649006623,
+  "p50_user_len": 96.0,
+  "p95_user_len": 555.0500000000002,
+  "rating_min": 1.0,
+  "rating_max": 5.0
+}

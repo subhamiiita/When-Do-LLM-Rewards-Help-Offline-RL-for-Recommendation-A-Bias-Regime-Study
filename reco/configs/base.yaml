@@ -1,0 +1,59 @@
+seed: 42
+device: cuda
+num_workers: 0
+
+dataset:
+  name: movielens-1m           # movielens-1m | amazon-videogames | yelp
+  max_seq_len: 50
+  min_rating_positive: 4       # rating >= this is "positive" for binary baseline
+  val_frac: 0.1                # fraction of users held out for sim-real-gap calibration
+  neg_sampling: popularity     # uniform | popularity
+
+encoder:
+  name: sasrec
+  hidden_dim: 64
+  num_blocks: 2
+  num_heads: 2
+  dropout: 0.2
+  attn_dropout: 0.2
+
+agent:
+  name: dqn                    # dqn | ppo
+  gamma: 0.9
+  tau: 0.005                   # soft target update
+  warmup_lr: 1.0e-3            # supervised warmup uses full encoder with this lr
+  lr: 3.0e-4                   # RL phase — smaller; only Q-head trains when frozen
+  freeze_encoder: true         # freeze SASRec during RL, train only Q-head
+  batch_size: 256
+  epochs: 30
+  steps_per_epoch: 500
+  warmup_epochs: 3             # supervised pretrain on next-item prediction
+  clip_grad: 1.0
+  # ppo-only
+  ppo_clip: 0.2
+  ppo_epochs: 4
+  value_coef: 0.5
+  entropy_coef: 0.01
+
+reward:
+  name: ug_mors                # binary | naive_continuous | hard_gate | ug_mors
+  # shared
+  topk_keywords: 12            # use top-K pos/neg keywords per item
+  sim_temperature: 0.15        # temperature for keyword-item similarity
+  # binary-vote (baseline)
+  binary_vote_threshold: 0.5
+  # hard_gate
+  hard_gate_threshold: 0.55    # mask items with u_llm above this
+  # ug_mors (ours)
+  crc_alpha: 0.05              # conformal miscoverage target (tightened from 0.1)
+  epistemic_weights: [0.0, 0.5, 0.5]    # [u_jml (aleatoric), u_sem (epi), u_nli (epi)]
+  gate_temperature: 0.03       # sharp soft-gate transition
+  confidence_floor: 0.1        # even highly uncertain items get this much weight
+
+eval:
+  topks: [1, 5, 10, 20]
+  sample_negatives: 100        # per-user negatives for ranking eval
+
+logging:
+  out_dir: runs
+  save_every: 10
