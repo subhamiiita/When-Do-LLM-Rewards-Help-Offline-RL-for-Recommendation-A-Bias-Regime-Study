@@ -1,8 +1,5 @@
 # Uncertainty-Gated Reward Calibration for LLM-Driven Offline RL
 
-Anonymous code release for the RecSys 2026 submission
-*"When Does Uncertainty-Gated Reward Calibration Help LLM-Driven Offline RL? A Bias-Regime Study."*
-
 ## Overview
 
 This repository contains a comprehensive implementation of uncertainty-gated reward calibration methods for offline reinforcement learning in recommendation systems. The project investigates how LLM-generated rewards can be leveraged effectively while managing their inherent biases across different regime settings.
