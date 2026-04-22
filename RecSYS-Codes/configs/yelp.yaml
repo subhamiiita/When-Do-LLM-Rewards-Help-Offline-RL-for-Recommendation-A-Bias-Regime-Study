@@ -1,0 +1,88 @@
+dataset: yelp
+paths:
+  ratings: data/yelp/mo_review_10core.json
+  items: data/yelp/mo_business_10core.json
+  keywords_cache: cache/yelp/qwen2_7b/keywords_cache.json
+  item_emb_npz: cache/yelp/qwen2_7b/item_embeddings.npz
+  keyword_emb_npz: cache/yelp/qwen2_7b/keyword_embeddings.npz
+  split_pkl: results/splits/yelp.pkl
+  sasrec_ckpt: results/sasrec/yelp.pt
+  retention_ckpt: results/retention/yelp.pt
+  pooled_kw: results/pooled_kw_emb/yelp.pt
+  nli_cache: results/nli/yelp.npz
+id_field: business_id
+id_dtype: str
+rating_threshold: 3
+category_field: categories
+category_sep: ","
+
+sasrec:
+  max_len: 50
+  d_model: 64
+  n_heads: 2
+  n_blocks: 2
+  dropout: 0.2
+  batch_size: 512
+  epochs: 30
+  lr: 0.001
+  neg_per_pos: 1
+
+retention:
+  hidden: 64
+  k_last: 3
+  batch_size: 256
+  epochs: 10
+  lr: 0.001
+
+nli:
+  model: cross-encoder/nli-deberta-v3-xsmall
+  batch: 512
+  top_k_candidates: 200
+  persona_top_cats: 3
+  persona_top_kws: 5
+
+reward:
+  alpha: 0.7
+  beta: 0.3
+  tau_m: 1.0
+  tau_u: 1.0
+  eta_div: 0.3
+  eta_per: 0.2
+  eta_ret: 0.2
+  div_window_k: 3
+  T0_schedule: 20
+
+env:
+  horizon: 20
+  n_envs: 32
+
+rl:
+  total_steps: 100000
+  gamma: 0.9
+  lr: 0.0003
+  dqn:
+    replay: 100000
+    target_update: 1000
+    eps_start: 1.0
+    eps_end: 0.05
+    eps_decay_steps: 50000
+    batch: 256
+  ppo:
+    rollout: 2048
+    epochs: 4
+    clip: 0.2
+    gae_lambda: 0.95
+    batch: 256
+    entropy: 0.01
+  a2c:
+    rollout: 32
+    entropy: 0.01
+  trpo:
+    rollout: 2048
+    max_kl: 0.01
+    cg_iters: 10
+    damping: 0.1
+
+eval:
+  n_negs: 99
+  k_at: 10
