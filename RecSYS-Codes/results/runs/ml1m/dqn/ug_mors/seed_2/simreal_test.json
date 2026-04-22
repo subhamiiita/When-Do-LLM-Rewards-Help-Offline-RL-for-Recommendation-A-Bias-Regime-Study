@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "dqn",
+  "variant": "ug_mors",
+  "seed": 2,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.2775610007987117,
+  "hr_at_10": 0.5251655629139073
+}

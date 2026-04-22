@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "a2c",
+  "variant": "baseline_vote",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.07653354208990439,
+  "hr_at_10": 0.1587748344370861
+}

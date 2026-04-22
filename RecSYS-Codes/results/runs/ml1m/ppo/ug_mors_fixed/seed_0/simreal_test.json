@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "ppo",
+  "variant": "ug_mors_fixed",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.17988674151186912,
+  "hr_at_10": 0.3629139072847682
+}

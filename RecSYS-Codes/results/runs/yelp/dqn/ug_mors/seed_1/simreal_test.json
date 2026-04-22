@@ -1,0 +1,10 @@
+{
+  "dataset": "yelp",
+  "agent": "dqn",
+  "variant": "ug_mors",
+  "seed": 1,
+  "split": "test",
+  "n_eval": 6559,
+  "ndcg_at_10": 0.17350408307189058,
+  "hr_at_10": 0.32718402195456625
+}

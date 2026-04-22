@@ -1,0 +1,10 @@
+{
+  "dataset": "videogames",
+  "agent": "dqn",
+  "variant": "ug_mors",
+  "seed": 1,
+  "split": "test",
+  "n_eval": 7253,
+  "ndcg_at_10": 0.09370390806430852,
+  "hr_at_10": 0.19054184475389493
+}

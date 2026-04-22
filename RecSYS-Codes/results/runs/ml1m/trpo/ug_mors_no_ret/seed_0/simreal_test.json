@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "trpo",
+  "variant": "ug_mors_no_ret",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.0688268974127359,
+  "hr_at_10": 0.1413907284768212
+}

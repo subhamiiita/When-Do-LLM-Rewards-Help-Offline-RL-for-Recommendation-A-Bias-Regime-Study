@@ -1,0 +1,10 @@
+{
+  "dataset": "yelp",
+  "agent": "ppo",
+  "variant": "naive_continuous",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6559,
+  "ndcg_at_10": 0.12889239751342085,
+  "hr_at_10": 0.2666565025156274
+}

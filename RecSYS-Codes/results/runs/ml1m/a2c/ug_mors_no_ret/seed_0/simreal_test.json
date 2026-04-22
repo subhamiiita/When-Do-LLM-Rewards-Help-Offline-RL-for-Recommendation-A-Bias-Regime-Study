@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "a2c",
+  "variant": "ug_mors_no_ret",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.15988776383810485,
+  "hr_at_10": 0.31009933774834436
+}

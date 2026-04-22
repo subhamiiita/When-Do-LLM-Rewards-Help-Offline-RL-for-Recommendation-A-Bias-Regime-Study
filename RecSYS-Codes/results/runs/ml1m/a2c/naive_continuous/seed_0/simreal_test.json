@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "a2c",
+  "variant": "naive_continuous",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.16396309429446593,
+  "hr_at_10": 0.30480132450331127
+}

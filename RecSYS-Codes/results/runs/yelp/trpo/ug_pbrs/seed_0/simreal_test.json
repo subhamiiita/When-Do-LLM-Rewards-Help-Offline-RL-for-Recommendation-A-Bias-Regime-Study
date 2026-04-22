@@ -1,0 +1,10 @@
+{
+  "dataset": "yelp",
+  "agent": "trpo",
+  "variant": "ug_pbrs",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6559,
+  "ndcg_at_10": 0.04422837296788477,
+  "hr_at_10": 0.10138740661686232
+}

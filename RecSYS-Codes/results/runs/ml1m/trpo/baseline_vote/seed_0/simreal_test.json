@@ -1,0 +1,10 @@
+{
+  "dataset": "ml1m",
+  "agent": "trpo",
+  "variant": "baseline_vote",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6040,
+  "ndcg_at_10": 0.04525762756928703,
+  "hr_at_10": 0.09884105960264901
+}

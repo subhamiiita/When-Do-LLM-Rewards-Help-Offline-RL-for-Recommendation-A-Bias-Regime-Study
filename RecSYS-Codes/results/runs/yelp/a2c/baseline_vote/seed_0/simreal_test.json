@@ -1,0 +1,10 @@
+{
+  "dataset": "yelp",
+  "agent": "a2c",
+  "variant": "baseline_vote",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 6559,
+  "ndcg_at_10": 0.05451283074675727,
+  "hr_at_10": 0.11831071809727092
+}

@@ -1,0 +1,10 @@
+{
+  "dataset": "videogames",
+  "agent": "trpo",
+  "variant": "baseline_vote",
+  "seed": 0,
+  "split": "test",
+  "n_eval": 7253,
+  "ndcg_at_10": 0.046525386190736574,
+  "hr_at_10": 0.09761478009099683
+}
