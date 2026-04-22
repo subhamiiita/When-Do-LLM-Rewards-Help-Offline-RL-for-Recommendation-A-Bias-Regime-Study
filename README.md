@@ -219,18 +219,6 @@ Benchmark online RL agents (DQN, PPO, A2C, TRPO) against offline IQL to validate
 - Verify dataset files are in correct directory
 - Check 5-core filtering logs in `reco/processed/`
 
-## Citation
-
-If you use this code, please cite:
-
-```bibtex
-@inproceedings{anonymous2026uncertainty,
-  title={When Does Uncertainty-Gated Reward Calibration Help LLM-Driven Offline RL? A Bias-Regime Study},
-  author={Anonymous},
-  booktitle={RecSys 2026 (Anonymous Submission)},
-  year={2026}
-}
-```
 
 ## License
 
